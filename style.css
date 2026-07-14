@@ -2004,6 +2004,9 @@ body {
     box-shadow: none;
 }
 
+/* the hatch lives entirely OUTSIDE the panel as an L-band along the
+   right/bottom edges — a hover transform creates a stacking context that
+   would otherwise paint a z-index:-1 layer over the panel background */
 .t-card::after,
 .skill-card::after,
 .cert-card::after,
@@ -2011,10 +2014,14 @@ body {
 .sbs::after {
     content: "";
     position: absolute;
-    inset: 2px;
+    top: 14px;
+    left: 14px;
+    right: -10px;
+    bottom: -10px;
     z-index: -1;
-    transform: translate(8px, 8px);
     background: repeating-linear-gradient(45deg, var(--ink) 0 2px, transparent 2px 6px);
+    clip-path: polygon(calc(100% - 10px) 0, 100% 0, 100% 100%, 0 100%,
+            0 calc(100% - 10px), calc(100% - 10px) calc(100% - 10px));
     border-radius: 10px;
     opacity: 0.55;
     transition: transform .25s ease;
@@ -2029,7 +2036,7 @@ body {
 .t-card:hover::after,
 .skill-card:hover::after,
 .cert-card:hover::after {
-    transform: translate(12px, 12px);
+    transform: translate(4px, 4px);
 }
 
 /* ---- 5. night constellations in the hero sky ---- */
