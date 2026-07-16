@@ -2684,3 +2684,102 @@ a.cert-card .cert-issuer::after {
     content: " · view ↗";
     opacity: 0.85;
 }
+
+/* ================================================================
+   ENTRANCE & AMBIENCE — staggered name, night lantern, scroll cue
+   ================================================================ */
+
+/* letter-by-letter name reveal (spans injected by JS) */
+.ltr {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(0.55em) rotate(7deg);
+    animation: ltrIn .45s cubic-bezier(.2, .9, .3, 1.2) forwards;
+    animation-delay: calc(var(--i) * 38ms + .25s);
+}
+
+@keyframes ltrIn {
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* night lantern: warm glow following the cursor across the dark sea */
+.lantern {
+    position: fixed;
+    inset: 0;
+    z-index: 400;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .6s ease;
+    background: radial-gradient(300px circle at var(--lx, 50%) var(--ly, 40%),
+            rgba(224, 169, 79, 0.13), rgba(224, 169, 79, 0.04) 45%, transparent 72%);
+}
+
+html.night .lantern {
+    opacity: 1;
+}
+
+/* scroll cue: bobbing anchor at the hero's foot */
+.scroll-cue {
+    position: absolute;
+    left: 50%;
+    bottom: 122px;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    text-decoration: none;
+    color: var(--ink);
+    opacity: 0.75;
+    transition: opacity .4s ease;
+    animation: cueBob 2.2s ease-in-out infinite;
+    z-index: 1;
+}
+
+.scroll-cue svg {
+    width: 22px;
+    height: 22px;
+}
+
+.scroll-cue span {
+    font-family: var(--font-hand);
+    font-size: 0.68rem;
+    letter-spacing: 1.5px;
+}
+
+.scroll-cue:hover {
+    opacity: 1;
+}
+
+.scroll-cue.gone {
+    opacity: 0;
+    pointer-events: none;
+}
+
+@keyframes cueBob {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(7px); }
+}
+
+/* the SwiftSafe voyage card links its internship certificate */
+.t-cert {
+    display: inline-block;
+    margin-top: 8px;
+    font-family: var(--font-hand);
+    font-size: 0.78rem;
+    color: var(--red);
+    text-decoration: none;
+}
+
+.t-cert:hover {
+    transform: rotate(-1deg);
+}
+
+@media (max-width: 640px) {
+    .scroll-cue {
+        bottom: 116px;
+    }
+}

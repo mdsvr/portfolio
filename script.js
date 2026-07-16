@@ -34,6 +34,9 @@ function onScroll() {
     ship.classList.add('sailing');
     clearTimeout(sailTimer);
     sailTimer = setTimeout(() => ship.classList.remove('sailing'), 450);
+    // the scroll cue has done its job once you set sail
+    const cue = $('#scrollCue');
+    if (cue) cue.classList.toggle('gone', scrollY > 90);
     // log pose needle swings as you voyage down the page
     if (lpNeedle) lpNeedle.style.transform = `rotate(${(p * 300).toFixed(1)}deg)`;
     // vivre card always points toward its person (the contact section)
@@ -88,6 +91,36 @@ const sectionObserver = new IntersectionObserver(entries => {
     });
 }, { rootMargin: '-45% 0px -50% 0px' });
 $$('main section[id], header[id]').forEach(s => sectionObserver.observe(s));
+
+/* ---------- letter-staggered name reveal ---------- */
+if (!reduceMotion) {
+    const h1 = $('.hero h1');
+    if (h1) {
+        let i = 0;
+        const split = node => {
+            [...node.childNodes].forEach(child => {
+                if (child.nodeType === Node.TEXT_NODE) {
+                    const frag = document.createDocumentFragment();
+                    for (const ch of child.textContent) {
+                        if (ch.trim() === '') {
+                            frag.append(ch);
+                            continue;
+                        }
+                        const s = document.createElement('span');
+                        s.className = 'ltr';
+                        s.style.setProperty('--i', i++);
+                        s.textContent = ch;
+                        frag.append(s);
+                    }
+                    child.replaceWith(frag);
+                } else if (child.classList && child.classList.contains('accent')) {
+                    split(child);
+                }
+            });
+        };
+        split(h1);
+    }
+}
 
 /* ---------- typing effect ---------- */
 const typed = $('#typed');
@@ -271,6 +304,15 @@ $('.logo').addEventListener('click', () => {
     document.body.classList.add('gear5');
     setTimeout(() => document.body.classList.remove('gear5'), 2500);
 });
+
+/* ---------- night lantern follows the pointer ---------- */
+const lantern = $('#lantern');
+if (lantern && matchMedia('(pointer: fine)').matches) {
+    addEventListener('mousemove', e => {
+        lantern.style.setProperty('--lx', e.clientX + 'px');
+        lantern.style.setProperty('--ly', e.clientY + 'px');
+    }, { passive: true });
+}
 
 /* ---------- night-at-sea mode ---------- */
 const modeToggle = $('#modeToggle');

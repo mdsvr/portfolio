@@ -41,6 +41,7 @@
 <body>
     <a class="skip" href="#main">Skip to content</a>
     <canvas id="sea" aria-hidden="true"></canvas>
+    <div class="lantern" id="lantern" aria-hidden="true"></div>
 
     <div class="progress" aria-hidden="true">
         <div class="progress-bar" id="progressBar"></div>
@@ -206,6 +207,15 @@
             </div>
         </div>
 
+        <a class="scroll-cue" id="scrollCue" href="#about" aria-label="Scroll to the first chapter">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="5" r="3" fill="none" stroke="currentColor" stroke-width="2" />
+                <path d="M12 8 L12 20 M6 12 L18 12 M4 16 C5 20 9 21.5 12 20 C15 21.5 19 20 20 16 M4 16 L7 17.5 M20 16 L17 17.5"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            </svg>
+            <span>scroll to set sail</span>
+        </a>
+
         <div class="waves" aria-hidden="true">
             <svg class="wave wave-back" viewBox="0 0 2880 120" preserveAspectRatio="none">
                 <path d="M0,60 c180,40 360,-40 720,0 c180,40 360,-40 720,0 c180,40 360,-40 720,0 c180,40 360,-40 720,0 L2880,120 L0,120 Z" />
@@ -330,6 +340,8 @@
                             <p>Built ML components for anomaly detection, risk analysis, and security monitoring
                                 pipelines processing real operational data. Developed backend services and Python
                                 data-processing workflows for cybersecurity automation in a distributed team.</p>
+                            <a class="t-cert" href="certificates/swiftsafe-internship-certificate.pdf" target="_blank"
+                                rel="noopener">internship certificate ↗</a>
                         </div>
                     </article>
 
@@ -576,6 +588,10 @@
                     <a class="cert-card reveal" style="--d:.05s" href="certificates/ai-fluency-anthropic.pdf"
                         target="_blank" rel="noopener"><span class="cert-issuer">Anthropic · 2026</span>AI Fluency:
                         Framework &amp; Foundations</a>
+                    <a class="cert-card reveal" style="--d:.08s"
+                        href="certificates/introduction-to-claude-cowork-anthropic.pdf" target="_blank"
+                        rel="noopener"><span class="cert-issuer">Anthropic · 2026</span>Introduction to Claude
+                        Co-work</a>
                     <a class="cert-card reveal" style="--d:.1s" href="certificates/oci-generative-ai-professional.pdf"
                         target="_blank" rel="noopener"><span class="cert-issuer">Oracle · 2025</span>OCI Generative AI
                         Professional</a>
